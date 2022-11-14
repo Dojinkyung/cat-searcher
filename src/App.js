@@ -1,6 +1,10 @@
+import { SearchInput } from "./components/SearchInput.js";
+import { SearchResult } from "./components/SearchResult.js";
+import { ImageInfo } from "./components/ImageInfo.js";
+import { api } from "./api/api.js";
 console.log("app is running!");
 
-class App {
+export class App {
   $target = null;
   data = [];
 
@@ -9,28 +13,28 @@ class App {
 
     this.searchInput = new SearchInput({
       $target,
-      onSearch: keyword => {
+      onSearch: (keyword) => {
         api.fetchCats(keyword).then(({ data }) => this.setState(data));
-      }
+      },
     });
 
     this.searchResult = new SearchResult({
       $target,
       initialData: this.data,
-      onClick: image => {
+      onClick: (image) => {
         this.imageInfo.setState({
           visible: true,
-          image
+          image,
         });
-      }
+      },
     });
 
     this.imageInfo = new ImageInfo({
       $target,
       data: {
         visible: false,
-        image: null
-      }
+        image: null,
+      },
     });
   }
 
