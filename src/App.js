@@ -2,6 +2,8 @@ import { SearchInput } from "./components/SearchInput.js";
 import { SearchResult } from "./components/SearchResult.js";
 import { ImageInfo } from "./components/ImageInfo.js";
 import { api } from "./api/api.js";
+import { DarkMode } from "./utils/DarkMode.js";
+
 console.log("app is running!");
 
 export class App {
@@ -10,6 +12,8 @@ export class App {
 
   constructor($target) {
     this.$target = $target;
+
+    this.darkmode = new DarkMode($target);
 
     this.searchInput = new SearchInput({
       $target,
