@@ -4,10 +4,6 @@
   font-weight: normal;
   font-style: normal;
 }
-:root {
-  --font-color:#000;
-  --bg-color:white;
-}
 
 html {
   box-sizing: border-box;
@@ -16,11 +12,15 @@ html {
 body * {
   font-family: Goyang;
 }
-body.dark {
-    background-color: #000;
-    color: white;
+body.dark {  
+  --font-color:white;
+  --bg-color:#000;
+  color: var(--font-color);
+  background-color: var(--bg-color);;
   }
 body.light {
+  --font-color:#000;
+  --bg-color:white;
   color: var(--font-color);
   background-color: var(--bg-color);
 }
@@ -67,7 +67,7 @@ body{
   width: 100%;
   font-size: 40px;
   padding: 10px 15px;
-  font-color:var(--font-color);
+  color:var(--font-color);
   background-color: var(--bg-color);
 }
 .ImageInfo {
