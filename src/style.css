@@ -102,14 +102,22 @@ body{
 .ImageInfo .content-wrapper img {
   width: 100%;
 }
-
 @media screen and (max-width: 992px) {
   .SearchResult{  grid-template-columns: repeat(3, minmax(250px, 1fr));}
 
 }
 @media screen and (max-width: 768px) {
   .SearchResult{  grid-template-columns: repeat(2, minmax(250px, 1fr));}
-
+  .ImageInfo .content-wrapper {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 5px;
+  }
 }
 @media screen and (max-width: 576px) {
   .SearchResult{  grid-template-columns: repeat(1, minmax(250px, 1fr));}

@@ -17,24 +17,38 @@ export class ImageInfo {
     this.data = nextData;
     this.render();
   }
-
   render() {
     if (this.data.visible) {
       const { name, url, temperament, origin } = this.data.image;
 
       this.$imageInfo.innerHTML = `
         <div class="content-wrapper">
-          <div class="title">
+          <header class="title">
             <span>${name}</span>
-            <div class="close">x</div>
-          </div>
+            <button class="close">x</button>
+          </header>
           <img src="${url}" alt="${name}"/>        
-          <div class="description">
-            <div>성격: ${temperament}</div>
-            <div>태생: ${origin}</div>
-          </div>
+          <ul class="description">
+            <li>성격: ${temperament}</li>
+            <li>태생: ${origin}</li>
+          </ul>
         </div>`;
       this.$imageInfo.style.display = "block";
+      const closeBtn = this.$imageInfo.querySelector(".close");
+      const outside = this.$imageInfo;
+      window.addEventListener("click", (e) => {
+        if (e.target === outside) {
+          this.$imageInfo.style.display = "none";
+        }
+      });
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && this.$imageInfo.style.display !== "none") {
+          this.$imageInfo.style.display = "none";
+        }
+      });
+      closeBtn.addEventListener("click", () => {
+        this.$imageInfo.style.display = "none";
+      });
     } else {
       this.$imageInfo.style.display = "none";
     }
