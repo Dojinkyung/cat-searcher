@@ -3,6 +3,7 @@ import { SearchResult } from "./components/SearchResult.js";
 import { ImageInfo } from "./components/ImageInfo.js";
 import { api } from "./api/api.js";
 import { DarkMode } from "./utils/DarkMode.js";
+import { IsLoading } from "./components/IsLoading.js";
 
 console.log("app is running!");
 
@@ -18,7 +19,12 @@ export class App {
     this.searchInput = new SearchInput({
       $target,
       onSearch: (keyword) => {
-        api.fetchCats(keyword).then(({ data }) => this.setState(data));
+        this.isLoading.toggleLoader();
+        return api.fetchCats(keyword).then(({ data }) => {
+          this.setState(data);
+          console.log(data);
+          this.isLoading.toggleLoader();
+        });
       },
     });
 
@@ -32,7 +38,7 @@ export class App {
         });
       },
     });
-
+    this.isLoading = new IsLoading($target);
     this.imageInfo = new ImageInfo({
       $target,
       data: {

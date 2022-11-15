@@ -8,7 +8,9 @@
 html {
   box-sizing: border-box;
 }
-
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}
 body * {
   font-family: Goyang;
 }
@@ -16,7 +18,7 @@ body.dark {
   --font-color:white;
   --bg-color:#000;
   color: var(--font-color);
-  background-color: var(--bg-color);;
+  background-color: var(--bg-color);
   }
 body.light {
   --font-color:#000;
@@ -25,10 +27,10 @@ body.light {
   background-color: var(--bg-color);
 }
 body{
-  transition: all 0.2s ease-in-out;
   height: 100vh;
-  padding:0px;
-  margin: 0px;
+  margin: 10px;
+  transition: all 0.2s ease-in-out;
+  padding:5px;
 }
 
 *,
@@ -38,14 +40,14 @@ body{
 }
 
 #App {
+  height: 100vh;
   margin: 0 auto;
   max-width: 1200px;
-  height: 100vh;
   column-gap: 1.5em;
 }
 .SearchResult {
-  margin-top: 10px;
   display: grid;
+  margin-top: 10px;
   grid-template-columns: repeat(4, minmax(250px, 1fr));
   grid-gap: 20px;
 }
@@ -57,10 +59,10 @@ body{
 }
 
 .SearchResult .item {
-  background-color: #eee;
   display: inline-block;
-  margin: 0 0 1em;
   width: 100%;
+  margin: 0 0 1em;
+  background-color: #eee;
 }
 
 .SearchInput {
@@ -69,14 +71,16 @@ body{
   padding: 10px 15px;
   color:var(--font-color);
   background-color: var(--bg-color);
+  border: 1px solid var(--font-color);
 }
 .ImageInfo {
+  width: 100vw;
+  height: 100vh;
   position: fixed;
   left: 0;
   top: 0;
-  width: 100vw;
-  height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
 }
 
 .ImageInfo .title {
@@ -109,10 +113,10 @@ body{
 @media screen and (max-width: 768px) {
   .SearchResult{  grid-template-columns: repeat(2, minmax(250px, 1fr));}
   .ImageInfo .content-wrapper {
+    width: 100%;
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 100%;
     transform: translate(-50%, -50%);
     background-color: #fff;
     border: 1px solid #eee;
@@ -125,15 +129,19 @@ body{
 }
 @media (prefers-color-scheme: dark) {
   body {
-    background-color: #000;
-    color: white;
+    --font-color:white;
+    --bg-color:#000;
+    color: var(--font-color);
+    background-color: var(--bg-color);
   }
 
 }
 @media (prefers-color-scheme: light) {
   body {
-    background-color: white;
-    color:#000 ;
+    --font-color:#000;
+    --bg-color:white;
+    color: var(--font-color);
+    background-color: var(--bg-color);
   }
 }
 
@@ -145,27 +153,27 @@ body{
 }
 
 .label {
-	background-color: #111;
+	display: flex;
+	width: 50px;
+	height: 26px;
+	background-color: rgb(132, 134, 153);
 	border-radius: 50px;
 	cursor: pointer;
-	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	padding: 5px;
 	position: relative;
-	height: 26px;
-	width: 50px;
 	transform: scale(1.5);
 }
 
 .label .ball {
+	width: 22px;
+	height: 22px;
 	background-color: #fff;
 	border-radius: 50%;
 	position: absolute;
 	top: 2px;
 	left: 2px;
-	height: 22px;
-	width: 22px;
 	transform: translateX(0px);
 	transition: transform 0.2s linear;
 }
@@ -173,4 +181,28 @@ body{
 .checkbox:checked + .label .ball {
 	transform: translateX(24px);
 }
-
+/* .isLoading-wapper .hidden {
+  display: none;
+} */
+.isLoading-wapper{
+  display: flex;
+  z-index: 1;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(2px);
+}
+.isLoading-wapper p{
+  background-color: antiquewhite;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 35px;
+}
+.hidden {
+  visibility: hidden;
+}
