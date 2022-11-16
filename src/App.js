@@ -18,13 +18,19 @@ export class App {
 
     this.searchInput = new SearchInput({
       $target,
-      onSearch: (keyword) => {
+      onSearch: async (keyword) => {
         this.isLoading.toggleLoader();
-        return api.fetchCats(keyword).then(({ data }) => {
-          this.setState(data);
-          console.log(data);
-          this.isLoading.toggleLoader();
-        });
+        const { data } = await api.fetchCats(keyword);
+        this.setState(data);
+        console.log(data);
+        this.isLoading.toggleLoader();
+      },
+      onRandom: async () => {
+        this.isLoading.toggleLoader();
+        const { data } = await api.fetchAll();
+        this.setState(data);
+        console.log(data);
+        this.isLoading.toggleLoader();
       },
     });
 
