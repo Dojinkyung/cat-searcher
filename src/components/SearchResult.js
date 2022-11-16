@@ -20,20 +20,28 @@ export class SearchResult {
   }
 
   render() {
-    this.$searchResult.innerHTML = this.data
-      .map(
-        (cat) => `
+    if (this.data.length > 0) {
+      this.$searchResult.innerHTML = this.data
+        .map(
+          (cat) => `
           <div class="item">
             <img src=${cat.url} alt=${cat.name} />
           </div>
         `
-      )
-      .join("");
+        )
+        .join("");
 
-    this.$searchResult.querySelectorAll(".item").forEach(($item, index) => {
-      $item.addEventListener("click", () => {
-        this.onClick(this.data[index]);
+      this.$searchResult.querySelectorAll(".item").forEach(($item, index) => {
+        $item.addEventListener("click", () => {
+          this.onClick(this.data[index]);
+        });
       });
-    });
+    } else {
+      const noResult = document.createElement("p");
+      this.$searchResult.innerHTML = "";
+      noResult.className = "noResult-comment";
+      noResult.innerHTML = "고양이가 없습니다";
+      this.$searchResult.appendChild(noResult);
+    }
   }
 }

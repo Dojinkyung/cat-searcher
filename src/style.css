@@ -27,6 +27,7 @@ body.light {
   background-color: var(--bg-color);
 }
 body{
+  --loader-color:#000;
   height: 100vh;
   margin: 10px;
   transition: all 0.2s ease-in-out;
@@ -64,7 +65,14 @@ body{
   margin: 0 0 1em;
   background-color: #eee;
 }
-
+.SearchResult .noResult-comment{
+  position: fixed;
+  left: 40%;
+  top: 40%;
+  height: 60px;
+  font-size: 35px;
+  color: var(--loader-color)
+}
 .SearchInput {
   width: 100%;
   font-size: 40px;
@@ -198,10 +206,12 @@ body{
   backdrop-filter: blur(2px);
 }
 .isLoading-wapper p{
+  height: 60px;
   background-color: antiquewhite;
-  height: 50px;
-  border-radius: 50%;
+  border-radius: 50px;
+  padding:10px;
   font-size: 35px;
+  color: var(--loader-color)
 }
 .hidden {
   visibility: hidden;
