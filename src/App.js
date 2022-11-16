@@ -10,7 +10,7 @@ console.log("app is running!");
 export class App {
   $target = null;
   data = [];
-
+  info = null;
   constructor($target) {
     this.$target = $target;
 
@@ -22,14 +22,12 @@ export class App {
         this.isLoading.toggleLoader();
         const { data } = await api.fetchCats(keyword);
         this.setState(data);
-        console.log(data);
         this.isLoading.toggleLoader();
       },
       onRandom: async () => {
         this.isLoading.toggleLoader();
         const { data } = await api.fetchAll();
         this.setState(data);
-        console.log(data);
         this.isLoading.toggleLoader();
       },
     });
@@ -37,10 +35,15 @@ export class App {
     this.searchResult = new SearchResult({
       $target,
       initialData: this.data,
-      onClick: (image) => {
+      onClick: async (image) => {
+        this.isLoading.toggleLoader();
+        const catID = await api.fetchID(image.id);
+        const detail = catID.data;
+        this.isLoading.toggleLoader();
         this.imageInfo.setState({
           visible: true,
           image,
+          detail,
         });
       },
     });
@@ -50,6 +53,7 @@ export class App {
       data: {
         visible: false,
         image: null,
+        detail: null,
       },
     });
   }

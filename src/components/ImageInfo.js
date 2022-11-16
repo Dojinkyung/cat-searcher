@@ -19,8 +19,8 @@ export class ImageInfo {
   }
   render() {
     if (this.data.visible) {
-      const { name, url, temperament, origin } = this.data.image;
-
+      const { name, url } = this.data.image;
+      const { temperament, origin } = this.data.detail;
       this.$imageInfo.innerHTML = `
         <div class="content-wrapper">
           <header class="title">

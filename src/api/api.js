@@ -16,4 +16,7 @@ export const api = {
   fetchAll: () => {
     return request(`${API_ENDPOINT}/api/cats/random50`);
   },
+  fetchID: (id) => {
+    return request(`${API_ENDPOINT}/api/cats/${id}`);
+  },
 };
