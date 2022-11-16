@@ -10,6 +10,7 @@ export class SearchInput {
     this.$searchInput = $searchInput;
     this.$searchInput.placeholder = "고양이를 검색해보세요.|";
     $searchInput.className = "SearchInput";
+    this.$searchInput.autofocus = true;
     $inputBtnWapper.appendChild($searchInput);
 
     const $randomBtn = document.createElement("button");
@@ -18,6 +19,11 @@ export class SearchInput {
     $randomBtn.className = "randomBtn";
     $inputBtnWapper.appendChild($randomBtn);
 
+    $searchInput.addEventListener("click", (e) => {
+      if (e.target.value.length >= 1) {
+        e.target.value = "";
+      }
+    });
     $searchInput.addEventListener("keyup", (e) => {
       if (e.keyCode === 13) {
         onSearch(e.target.value);
