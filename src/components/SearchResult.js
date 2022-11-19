@@ -4,7 +4,7 @@ export class SearchResult {
   onClick = null;
 
   constructor({ $target, initialData, onClick }) {
-    this.$searchResult = document.createElement("div");
+    this.$searchResult = document.createElement("ul");
     this.$searchResult.className = "SearchResult";
     $target.appendChild(this.$searchResult);
 
@@ -24,12 +24,10 @@ export class SearchResult {
       this.$searchResult.innerHTML = this.data
         .map(
           (cat) => `
-          <div class="item">
-            <div class="hover-name">
-            <p class="name">${cat.name}</p> 
-            </div>
+          <li class="item">
+            <div class="hover-name">${cat.name}</div>
             <img src=${cat.url} alt=${cat.name} />
-          </div>
+          </li>
         `
         )
         .join("");

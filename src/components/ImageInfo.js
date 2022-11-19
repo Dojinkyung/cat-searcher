@@ -22,19 +22,22 @@ export class ImageInfo {
       const { name, url } = this.data.image;
       const { temperament, origin } = this.data.detail;
       this.$imageInfo.innerHTML = `
-        <div class="content-wrapper">
+        <section class="content-wrapper">
           <header class="title">
             <span>${name}</span>
             <button class="close">x</button>
           </header>
+          <section class="info">
           <img src="${url}" alt="${name}"/>        
           <ul class="description">
             <li>성격: ${temperament}</li>
             <li>태생: ${origin}</li>
           </ul>
-        </div>`;
+          </section>
+        </section>`;
       this.$imageInfo.style.display = "block";
       const closeBtn = this.$imageInfo.querySelector(".close");
+      const modalWapper = document.querySelector(".content-wapper");
       const outside = this.$imageInfo;
       window.addEventListener("click", (e) => {
         if (e.target === outside) {
