@@ -25,6 +25,9 @@ export class SearchResult {
         .map(
           (cat) => `
           <div class="item">
+            <div class="hover-name">
+            <p class="name">${cat.name}</p> 
+            </div>
             <img src=${cat.url} alt=${cat.name} />
           </div>
         `
