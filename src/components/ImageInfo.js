@@ -3,11 +3,11 @@ export class ImageInfo {
   data = null;
 
   constructor({ $target, data }) {
-    const $imageInfo = document.createElement("div");
-    $imageInfo.className = "ImageInfo";
-    this.$imageInfo = $imageInfo;
-    $target.appendChild($imageInfo);
+    this.imageInfo = document.createElement("div");
+    this.imageInfo.className = "ImageInfo";
+    $target.appendChild(this.imageInfo);
 
+    this.visible = false;
     this.data = data;
 
     this.render();
@@ -21,7 +21,7 @@ export class ImageInfo {
     if (this.data.visible) {
       const { name, url } = this.data.image;
       const { temperament, origin } = this.data.detail;
-      this.$imageInfo.innerHTML = `
+      this.imageInfo.innerHTML = `
         <section class="content-wrapper">
           <header class="title">
             <span>${name}</span>
@@ -35,25 +35,31 @@ export class ImageInfo {
           </ul>
           </section>
         </section>`;
-      this.$imageInfo.style.display = "block";
-      const closeBtn = this.$imageInfo.querySelector(".close");
-      const modalWapper = document.querySelector(".content-wapper");
-      const outside = this.$imageInfo;
+      this.visible = true;
+      const wrapper = document.querySelector(".ImageInfo");
+      const modal = document.querySelector(".content-wrapper");
+      modal.classList.add("show");
+      wrapper.classList.add("show");
+
+      const closeBtn = this.imageInfo.querySelector(".close");
+      const outside = this.imageInfo;
+
       window.addEventListener("click", (e) => {
         if (e.target === outside) {
-          this.$imageInfo.style.display = "none";
+          modal.classList.remove("show");
+          wrapper.classList.remove("show");
         }
       });
       window.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && this.$imageInfo.style.display !== "none") {
-          this.$imageInfo.style.display = "none";
+        if (e.key === "Escape" && modal.classList.contains("show")) {
+          modal.classList.remove("show");
+          wrapper.classList.remove("show");
         }
       });
       closeBtn.addEventListener("click", () => {
-        this.$imageInfo.style.display = "none";
+        modal.classList.remove("show");
+        wrapper.classList.remove("show");
       });
-    } else {
-      this.$imageInfo.style.display = "none";
     }
   }
 }
