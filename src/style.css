@@ -83,8 +83,9 @@ body{
 }
 .SearchResult .noResult-comment{
   height: 60px;
-  position: fixed;
-  left: 40%;
+  margin:35px;
+  position: absolute;
+  left:40%;
   top: 40%;
   font-size: 35px;
   color: var(--font-color)
@@ -97,6 +98,7 @@ body{
 }
 .inputBtn-Wapper .SearchInput  {
   width: 70%;
+  height:70px;
   font-size: 40px;
   padding: 10px 15px;
   color:var(--font-color);
@@ -105,9 +107,11 @@ body{
 }
 .inputBtn-Wapper .randomBtn{
   width: 20%;
+  height:70px;
   padding: 10px 15px;
-  font-size: 35px;
+  font-size: 23px;
   color:var(--font-color);
+  overflow: hidden;
   cursor: pointer;
   background-color: var(--bg-color);
   border: 1px solid var(--font-color);
@@ -175,7 +179,7 @@ body{
 }
 @media screen and (max-width: 576px) {
   .SearchResult{  grid-template-columns: repeat(1, minmax(250px, 1fr));}
-
+  .SearchResult .noResult-comment{left:10%;}
 }
 @media (prefers-color-scheme: dark) {
   body {

@@ -1,3 +1,4 @@
+import LazyLoading from "../utils/LazyLoading.js";
 export class SearchResult {
   $searchResult = null;
   data = null;
@@ -21,12 +22,13 @@ export class SearchResult {
 
   render() {
     if (this.data.length > 0) {
+      LazyLoading();
       this.$searchResult.innerHTML = this.data
         .map(
           (cat) => `
           <li class="item">
             <div class="hover-name">${cat.name}</div>
-            <img src=${cat.url} alt=${cat.name} />
+            <img src=${cat.url} alt=${cat.name} loading='lazy' class="lazy"/>
           </li>
         `
         )

@@ -1,3 +1,4 @@
+import LazyLoading from "../utils/LazyLoading.js";
 export class ImageInfo {
   $imageInfo = null;
   data = null;
@@ -21,6 +22,7 @@ export class ImageInfo {
     if (this.data.visible) {
       const { name, url } = this.data.image;
       const { temperament, origin } = this.data.detail;
+      LazyLoading();
       this.imageInfo.innerHTML = `
         <section class="content-wrapper">
           <header class="title">
@@ -28,7 +30,7 @@ export class ImageInfo {
             <button class="close">x</button>
           </header>
           <section class="info">
-          <img src="${url}" alt="${name}"/>        
+          <img src="${url}" alt="${name}" loading="lazy"/>        
           <ul class="description">
             <li>성격: ${temperament}</li>
             <li>태생: ${origin}</li>

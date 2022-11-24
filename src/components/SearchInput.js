@@ -15,7 +15,7 @@ export class SearchInput {
 
     const $randomBtn = document.createElement("button");
     this.$randomBtn = $randomBtn;
-    this.$randomBtn.innerHTML = "랜덤 고양이.|";
+    this.$randomBtn.innerHTML = "랜덤  |";
     $randomBtn.className = "randomBtn";
     $inputBtnWapper.appendChild($randomBtn);
 
