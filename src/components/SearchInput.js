@@ -30,7 +30,7 @@ export class SearchInput {
       }
     });
     $randomBtn.addEventListener("click", (e) => {
-      onRandom(e.target.value);
+      onRandom();
     });
     console.log("SearchInput created.", this);
   }
