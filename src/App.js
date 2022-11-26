@@ -5,7 +5,15 @@ import { api } from "./api/api.js";
 import { DarkMode } from "./utils/DarkMode.js";
 import { IsLoading } from "./components/IsLoading.js";
 import { Banner } from "./components/Banner.js";
-
+import { SearchedHistory } from "./components/SearchedHistory.js";
+import {
+  SaveSearchingWords,
+  SaveSearchedItems,
+  SaveSearchedWords,
+  GetSearchedItems,
+  GetSearchedWords,
+  GetSearchingWords,
+} from "./utils/Storage.js";
 console.log("app is running!");
 
 export class App {
@@ -17,14 +25,25 @@ export class App {
     this.$target = $target;
     this.darkmode = new DarkMode($target);
     this.isLoading = new IsLoading($target);
+    if (!GetSearchedWords()) {
+      SaveSearchedWords();
+    }
+    if (!GetSearchedItems()) {
+      SaveSearchedItems();
+    }
+    if (!GetSearchingWords()) {
+      SaveSearchingWords();
+    }
 
     this.searchInput = new SearchInput({
       $target,
       onSearch: async (keyword) => {
+        SaveSearchingWords(keyword);
         this.visible = false;
         this.isLoading.toggleLoader();
         const { data } = await api.fetchCats(keyword);
         this.setState(data);
+        SaveSearchedItems(data);
         this.isLoading.toggleLoader();
       },
       onRandom: async () => {
@@ -32,6 +51,7 @@ export class App {
         this.isLoading.toggleLoader();
         const { data } = await api.fetchAll();
         this.setState(data);
+        SaveSearchedItems(data);
         this.isLoading.toggleLoader();
       },
     });

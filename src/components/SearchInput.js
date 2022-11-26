@@ -1,3 +1,5 @@
+import { GetSearchingWords, RemoveSearchingWords } from "../utils/storage.js";
+
 const TEMPLATE = '<input type="text">';
 
 export class SearchInput {
@@ -8,6 +10,9 @@ export class SearchInput {
 
     const $searchInput = document.createElement("input");
     this.$searchInput = $searchInput;
+    if (GetSearchingWords().length > 0) {
+      this.$searchInput.value = GetSearchingWords();
+    }
     this.$searchInput.placeholder = "고양이를 검색해보세요.|";
     $searchInput.className = "SearchInput";
     this.$searchInput.autofocus = true;
@@ -22,6 +27,7 @@ export class SearchInput {
     $searchInput.addEventListener("click", (e) => {
       if (e.target.value.length >= 1) {
         e.target.value = "";
+        RemoveSearchingWords();
       }
     });
     $searchInput.addEventListener("keyup", (e) => {
@@ -30,7 +36,9 @@ export class SearchInput {
       }
     });
     $randomBtn.addEventListener("click", (e) => {
+      RemoveSearchingWords();
       onRandom();
+      e.target.value = "";
     });
     console.log("SearchInput created.", this);
   }

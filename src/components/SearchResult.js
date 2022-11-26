@@ -1,4 +1,5 @@
 import LazyLoading from "../utils/LazyLoading.js";
+import { GetSearchedItems } from "../utils/storage.js";
 export class SearchResult {
   $searchResult = null;
   data = null;
@@ -10,6 +11,9 @@ export class SearchResult {
     $target.appendChild(this.$searchResult);
 
     this.data = initialData;
+    if (GetSearchedItems().length > 0) {
+      this.data = GetSearchedItems();
+    }
     this.onClick = onClick;
 
     this.render();
@@ -22,7 +26,9 @@ export class SearchResult {
 
   render() {
     if (this.data.length > 0) {
-      LazyLoading();
+      if (GetSearchedItems().length === 0) {
+        LazyLoading();
+      }
       this.$searchResult.innerHTML = this.data
         .map(
           (cat) => `

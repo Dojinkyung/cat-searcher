@@ -1,7 +1,6 @@
 import LazyLoading from "../utils/LazyLoading.js";
 import { plusSlides, showSlides } from "../utils/BannerSliders.js";
 export class Banner {
-  $imageInfo = null;
   data = null;
   visible = true;
   constructor({ $target, data, onVisible, onClick }) {
