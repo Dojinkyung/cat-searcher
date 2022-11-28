@@ -10,31 +10,21 @@ import {
   SaveSearchingWords,
   SaveSearchedItems,
   SaveSearchedWords,
-  GetSearchedItems,
+  RemoveSearchingWords,
+  initializeLocalStorage,
   GetSearchedWords,
-  GetSearchingWords,
 } from "./utils/Storage.js";
-console.log("app is running!");
-
 export class App {
   $target = null;
   data = [];
   info = null;
   visible = true;
+  historyData = [];
   constructor($target) {
     this.$target = $target;
     this.darkmode = new DarkMode($target);
     this.isLoading = new IsLoading($target);
-    if (!GetSearchedWords()) {
-      SaveSearchedWords();
-    }
-    if (!GetSearchedItems()) {
-      SaveSearchedItems();
-    }
-    if (!GetSearchingWords()) {
-      SaveSearchingWords();
-    }
-
+    initializeLocalStorage();
     this.searchInput = new SearchInput({
       $target,
       onSearch: async (keyword) => {
@@ -43,15 +33,31 @@ export class App {
         this.isLoading.toggleLoader();
         const { data } = await api.fetchCats(keyword);
         this.setState(data);
+        SaveSearchedWords(keyword);
         SaveSearchedItems(data);
+        this.history.setState(GetSearchedWords());
         this.isLoading.toggleLoader();
       },
       onRandom: async () => {
         this.visible = false;
         this.isLoading.toggleLoader();
+        RemoveSearchingWords();
         const { data } = await api.fetchAll();
         this.setState(data);
         SaveSearchedItems(data);
+        this.isLoading.toggleLoader();
+      },
+    });
+    this.history = new SearchedHistory({
+      $target,
+      onClick: async (keyword) => {
+        SaveSearchingWords(keyword);
+        this.visible = false;
+        this.isLoading.toggleLoader();
+        const { data } = await api.fetchCats(keyword);
+        SaveSearchedItems(data);
+        this.setState(data);
+        this.searchInput.setState(keyword);
         this.isLoading.toggleLoader();
       },
     });
@@ -98,9 +104,7 @@ export class App {
       },
     });
   }
-
   setState(nextData) {
-    console.log(this);
     this.data = nextData;
     if (this.visible) {
       this.banner.setState(nextData);

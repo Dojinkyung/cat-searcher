@@ -1,13 +1,14 @@
-import { GetSearchingWords, RemoveSearchingWords } from "../utils/storage.js";
-
-const TEMPLATE = '<input type="text">';
+import { GetSearchingWords, GetSearchedWords } from "../utils/storage.js";
 
 export class SearchInput {
   constructor({ $target, onSearch, onRandom }) {
+    this.data = GetSearchedWords();
+    this.history = null;
     const $inputBtnWapper = document.createElement("div");
     $inputBtnWapper.className = "inputBtn-Wapper";
     $target.appendChild($inputBtnWapper);
-
+    this.onSearch = onSearch;
+    this.onRandom = onRandom;
     const $searchInput = document.createElement("input");
     this.$searchInput = $searchInput;
     if (GetSearchingWords().length > 0) {
@@ -24,23 +25,27 @@ export class SearchInput {
     $randomBtn.className = "randomBtn";
     $inputBtnWapper.appendChild($randomBtn);
 
-    $searchInput.addEventListener("click", (e) => {
-      if (e.target.value.length >= 1) {
-        e.target.value = "";
-        RemoveSearchingWords();
-      }
-    });
-    $searchInput.addEventListener("keyup", (e) => {
-      if (e.keyCode === 13) {
-        onSearch(e.target.value);
-      }
-    });
-    $randomBtn.addEventListener("click", (e) => {
-      RemoveSearchingWords();
-      onRandom();
-      e.target.value = "";
-    });
+    this.render();
     console.log("SearchInput created.", this);
   }
-  render() {}
+  setState(nextData) {
+    this.history = nextData;
+    this.$searchInput.value = this.history;
+  }
+  render() {
+    this.$searchInput.addEventListener("click", (e) => {
+      if (e.target.value.length >= 1) {
+        e.target.value = "";
+      }
+    });
+    this.$searchInput.addEventListener("keyup", (e) => {
+      if (e.keyCode === 13) {
+        this.onSearch(e.target.value);
+      }
+    });
+    this.$randomBtn.addEventListener("click", (e) => {
+      this.onRandom();
+      this.$searchInput.value = "";
+    });
+  }
 }

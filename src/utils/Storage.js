@@ -1,5 +1,16 @@
 export const SaveSearchedWords = (string) => {
-  window.localStorage.setItem("history", string);
+  const saved = window.localStorage.getItem("history");
+  const keyword = JSON.parse(saved);
+  if (!keyword.includes(string)) {
+    if (keyword.length < 5) {
+      keyword.unshift(string);
+    } else {
+      keyword.pop();
+      keyword.unshift(string);
+    }
+    const tmp = JSON.stringify(keyword);
+    window.localStorage.setItem("history", tmp);
+  }
 };
 export const SaveSearchedItems = (object) => {
   window.localStorage.removeItem("Items");
@@ -11,19 +22,19 @@ export const SaveSearchingWords = (string) => {
   window.localStorage.setItem("input", string);
 };
 export const GetSearchedWords = () => {
-  const history = window.localStorage.getItem("history");
+  const history = JSON.parse(window.localStorage.getItem("history"));
   let historyArr = [];
-  if (history === "undefined") {
+  if (history === "[]") {
     return historyArr;
   } else {
-    historyArr = JSON.parse(history);
+    historyArr = history;
     return historyArr;
   }
 };
 export const GetSearchedItems = () => {
   const Items = window.localStorage.getItem("Items");
   let ItemsObj = [];
-  if (Items === "undefined") {
+  if (Items === "") {
     return ItemsObj;
   } else {
     ItemsObj = JSON.parse(Items);
@@ -32,11 +43,22 @@ export const GetSearchedItems = () => {
 };
 export const GetSearchingWords = () => {
   const input = window.localStorage.getItem("input");
-  if (input === "undefined") {
+  if (input === "") {
     return [];
   }
   return input;
 };
 export const RemoveSearchingWords = () => {
   window.localStorage.removeItem("input");
+};
+export const initializeLocalStorage = () => {
+  if (!window.localStorage.getItem("history")) {
+    window.localStorage.setItem("history", "[]");
+  }
+  if (!window.localStorage.getItem("input")) {
+    window.localStorage.setItem("input", "");
+  }
+  if (!window.localStorage.getItem("Items")) {
+    window.localStorage.setItem("Items", "");
+  }
 };
