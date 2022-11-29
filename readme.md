@@ -48,8 +48,7 @@ npm install && npm start
 ```
 
 ## 2. 📸 화면
-![](https://velog.velcdn.com/images/dodojin/post/08e13b4d-0dd6-4400-bff0-4099be31a0c9/image.gif)
-
+![image](https://user-images.githubusercontent.com/63532503/204534714-1ff51523-35cb-43f6-895a-226c84e5d851.png)
 # 💡 구현 내용
 
 파일 내 requirement.md의 ✅ 표시의 내용들 구현
