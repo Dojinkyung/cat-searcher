@@ -48,7 +48,7 @@ npm install && npm start
 ```
 
 ## 2. 📸 화면
-![](https://velog.velcdn.com/images/dodojin/post/8f4d1935-e265-491b-9d7b-0c89647e1ee2/image.gif)
+![](https://velog.velcdn.com/images/dodojin/post/08e13b4d-0dd6-4400-bff0-4099be31a0c9/image.gif)
 
 # 💡 구현 내용
 
