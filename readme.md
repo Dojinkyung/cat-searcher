@@ -1,6 +1,8 @@
 # ✨고양이 사진 검색기✨
 https://school.programmers.co.kr/skill_check_assignments/4
+
 # 🚀 배포
+[![Netlify Status](https://api.netlify.com/api/v1/badges/8c963488-351b-41d4-9152-60535ac564b2/deploy-status)](https://steady-fox-175a60.netlify.app/)
 
 
 # 🔧 기술 스택
